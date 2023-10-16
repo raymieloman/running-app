@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - "develop"
+env:
+  IMAGE_NAME: running_api
 
 jobs:
   build:
@@ -28,4 +30,12 @@ jobs:
           context: .
           file: ./Dockerfile-api
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/running_api:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.run_number }}
+      - 
+       name: Repository Dispatch
+       uses: peter-evans/repository-dispatch@v1
+       with:
+        token: ${{ secrets.PAT }}
+        repository: ${{ github.actor }}/running-k8s
+        event-type: new-image
+        client-payload: '{"image": "${{ github.actor }}/${{ env.IMAGE_NAME }}:${{ github.run_number }}"}'
