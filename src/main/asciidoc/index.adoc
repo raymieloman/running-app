@@ -1,0 +1,9 @@
+:revnumber: {docVersion}
+:toclevels: 1
+:docinfo2:
+:sectnumlevels: 1
+:sectnums!:
+
+= Running API documentation
+
+== <<runs.api.adoc#, Run API documentation>>

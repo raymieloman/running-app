@@ -1,0 +1,388 @@
+:revnumber: {docVersion}
+:toclevels: 1
+:docinfo2:
+:sectnumlevels: 1
+:sectnums!:
+:baseUrl: http://localhost:8080/api/runs
+
+= Run API Documentation
+{docdate}
+
+== Introduction
+
+This is the documentation for the Run API.
+
+The Run API is a collection of CRUD API endpoints used to manipulate runs registered in the application.
+
+[source, json, options="nowrap",  subs="attributes"]
+.Endpoints
+----
+GET    {baseUrl}
+POST   {baseUrl}
+GET    {baseUrl}/{id}
+PUT    {baseUrl}/{id}
+DELETE {baseUrl}/{id}
+----
+
+For a detailed explanation of the endpoints see below
+
+:sectnums:
+
+== GET: Get runs
+
+.Purpose
+Obtains a list of runs
+
+=== Request
+[caption=""]
+.HTTP Request Header Parameters
+|===
+|Header|Value
+
+|Content-Type|application/json
+|===
+
+
+[caption=""]
+.Request properties
+|===
+|Property|Value
+
+|URL|{baseUrl}
+|Method|GET
+|===
+
+.Path parameters
+* not applicable
+
+.Request Body
+* not applicable
+
+.Sample request
+[source, json, options="nowrap", subs="attributes"]
+----
+GET {baseUrl}
+----
+
+=== Response
+
+Our controller's method returns a list of runs represented as JSON
+
+[caption=""]
+.HTTP Response Header Parameters
+|===
+|Header|Value
+
+|Content-Type|application/json
+|===
+
+[caption=""]
+.Response messages
+|===
+|HTTP Status Code |Reason
+
+|200|OK
+|===
+
+.Response body
+The response body contains a JSON representation of the list of runs or an empty list ([])
+
+.Sample response
+[source, json, options="nowrap"]
+----
+[{
+	start: "Williemae Shields Jr.", 
+	finish: "Juanita Purdy", 
+	distance: 15
+}, 
+{
+	start: "Karey Abernathy", 
+	finish: "Reinaldo Zulauf", 
+	distance: 99
+}, 
+{
+	start: "Aurelio King", 
+	finish: "Mr. Indira Schneider", 
+	distance: 39
+}]
+----
+
+== POST: Create run
+
+.Purpose
+Create a run
+
+=== Request
+
+[caption=""]
+.HTTP Request Header Parameters
+|===
+|Header|Value
+
+|Content-Type|application/json
+|===
+
+
+[caption=""]
+.Request properties
+|===
+|Property|Value
+
+|URL|{baseUrl}
+|Method|POST
+|===
+
+.Path parameters
+* not applicable
+
+
+.Request Body
+The request body contains a JSON representation of the new to be created run **WITHOUT the id**, since the id is set by the application
+
+.Sample request
+[source, json, options="nowrap", subs="attributes"]
+----
+POST {baseUrl}
+----
+
+.Sample request body
+[source, json, options="nowrap"]
+----
+{
+	start: "Cary Leannon", 
+	finish: "Elliot Hickle", 
+	distance: 54
+}
+----
+
+=== Response
+
+The response body contains a JSON representation of the created run
+
+[caption=""]
+.HTTP Response Header Parameters
+|===
+|Header|Value
+
+|Content-Type|application/json
+|===
+
+[caption=""]
+.Response messages
+|===
+|HTTP Status Code |Reason
+
+|200|OK
+|===
+
+.Response body
+Our controller's method returns the created run respresented as JSON **WITH the id**, since the id is NOW set by the application
+
+.Sample response body
+[source, json, options="nowrap"]
+----
+{
+	id: 14996529566, 
+	start: "Rina Robel", 
+	finish: "Ms. Elma Gusikowski", 
+	distance: 20
+}
+----
+
+== GET: Get run
+
+.Purpose
+Obtains a specific run registered in the application by it's unique identifier
+
+=== Request
+
+[caption=""]
+.HTTP Request Header Parameters
+|===
+|Header|Value
+
+|Content-Type|application/json
+|===
+
+[caption=""]
+.Request properties
+|===
+|Property|Value
+
+|URL|{baseUrl}/{id}
+|Method|GET
+|===
+
+
+.Path parameters
+* id: an Integer as the identifier of the run to be obtained
+
+.Request Body
+* not applicable
+
+.Sample request
+[source, json, options="nowrap", subs="attributes"]
+----
+GET {baseUrl}/3
+----
+
+=== Response
+
+Our controller's method returns a run represented as JSON
+
+[caption=""]
+.HTTP Response Header Parameters
+|===
+|Header|Value
+
+|Content-Type|application/json
+|===
+
+[caption=""]
+.Response messages
+|===
+|HTTP Status Code |Reason
+
+|200|OK
+|404|Not found
+|===
+
+.Response body
+The response body contains a JSON representation of the requested Run by {id} or is empty when the Run is not found
+
+.Sample response body
+[source, json, options="nowrap"]
+----
+{
+	id: 6726879959, 
+	start: "Edelmira Kertzmann", 
+	finish: "Delcie Gorczany PhD", 
+	distance: 25
+}
+----
+
+== PUT: Update run
+
+.Purpose
+Update a run
+
+=== Request
+
+[caption=""]
+.HTTP Request Header Parameters
+|===
+|Header|Value
+
+|Content-Type|application/json
+|===
+
+
+[caption=""]
+.Request properties
+|===
+|Property|Value
+
+|URL|{baseUrl}/{id}
+|Method|PUT
+|===
+
+.Path parameters
+* id: an Integer as the identifier of the run to be updated
+
+.Request Body
+The request body contains a JSON representation of the update of the properties of the run **WITHOUT the id**, since the id is sent as the Path Parameter
+
+.Sample request
+[source, json, options="nowrap", subs="attributes"]
+----
+PUT {baseUrl}/4
+----
+
+.Sample request body
+[source, json, options="nowrap"]
+----
+{
+	start: "Ms. Craig Denesik", 
+	finish: "Carlee Tillman", 
+	distance: 8
+}
+----
+
+=== Response
+
+Our controller's method returns the updated run respresented as JSON **WITH the id**
+
+[caption=""]
+.HTTP Response Header Parameters
+|===
+|Header|Value
+
+|Content-Type|application/json
+|===
+
+[caption=""]
+.Response messages
+|===
+|HTTP Status Code |Reason
+
+|200|OK
+|404|Not found
+|===
+
+.Response body
+The response body contains a JSON representation of the updated run
+
+.Sample response body
+[source, json, options="nowrap"]
+----
+{
+	id: 6931379904, 
+	start: "Luke Mosciski", 
+	finish: "Miss Gayle Auer", 
+	distance: 14
+}
+----
+
+== DELETE: Delete run
+
+.Purpose
+Delete a specific run registered in the application by it's unique identifier
+
+=== Request
+
+[caption=""]
+.Request properties
+|===
+|Property|Value
+
+|URL|{baseUrl}/{id}
+|Method|DELETE
+|===
+
+.Path parameters
+* id: an Integer as the identifier of the run to be obtained
+
+.Request Body
+* not applicable
+
+.Sample request
+[source, json, options="nowrap",  subs="attributes"]
+----
+DELETE {baseUrl}/3
+----
+
+=== Response
+
+Our controller's method returns a statuscode based on the success of the deletion
+
+[caption=""]
+.Response messages
+|===
+|HTTP Status Code |Reason
+
+|204|No Content
+|404|Not found
+|===
+
+.Response body
+* not applicable
