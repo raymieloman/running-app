@@ -6,6 +6,7 @@ on:
       - "develop"
 env:
   IMAGE_NAME: running_api
+  DOCKER_USERNAME: rloman
 
 jobs:
   build:
@@ -38,4 +39,4 @@ jobs:
         token: ${{ secrets.PAT }}
         repository: ${{ github.actor }}/running-k8s
         event-type: new-image
-        client-payload: '{"image": "${{ github.actor }}/${{ env.IMAGE_NAME }}:${{ github.run_number }}"}'
+        client-payload: '{"image": "${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.run_number }}"}'
